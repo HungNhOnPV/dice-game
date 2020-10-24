@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper clearfix">
     <players :activePlayer="activePlayer" :scoresPlayer="scoresPlayer" :currentScore="currentScore" />
-    <controls @handleNewGame="handleNewGame" />
-    <dices />
+    <controls @handleNewGame="handleNewGame" @handleRollDice="handleRollDice" @handleHoldScore="handleHoldScore" />
+    <dices :dices="dices" />
     <popup-rule :isOpenPopup="isOpenPopup" @handleClosePopup="handleClosePopup" />
   </div>
 </template>
@@ -19,17 +19,47 @@ export default {
       isPlaying: false,
       isOpenPopup: false,
       activePlayer: 0,
-      scoresPlayer: [13, 30],
-      currentScore: 0
+      scoresPlayer: [0, 0],
+      dices: [1, 1],
+      currentScore: 0,
+      finalScore: 0
     }
   },
   methods: {
     handleNewGame: function () {
       this.isOpenPopup = true
-      this.isPlaying = true
     },
     handleClosePopup: function () {
       this.isOpenPopup = false
+      this.isPlaying = true
+      this.activePlayer = 0
+      this.scoresPlayer = [0, 0]
+      this.dices = [1, 1]
+      this.currentScore = 0
+    },
+    handleRollDice: function () {
+      if (!this.isPlaying) {
+        alert('Bạn cần phải bấm vào nút new game để chơi!')
+      } else {
+        let dice1 = Math.floor((Math.random() * 6) + 1)
+        let dice2 = Math.floor((Math.random() * 6) + 1)
+        this.dices = [dice1, dice2]
+        if (dice1 === 1 || dice2 === 1) {
+          this.currentScore = 0
+          this.activePlayer ? this.activePlayer = 0 : this.activePlayer = 1
+        } else {
+          this.currentScore = this.currentScore + dice1 + dice2
+        }
+      }
+    },
+    handleHoldScore: function () {
+      if (!this.isPlaying) {
+        alert('Bạn cần phải bấm vào nút new game để chơi!')
+      } else {
+        this.scoresPlayer[this.activePlayer] = this.currentScore
+        this.activePlayer ? this.activePlayer = 0 : this.activePlayer = 1
+        this.currentScore = 0
+      }
     }
   },
   components: {
