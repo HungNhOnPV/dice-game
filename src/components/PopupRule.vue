@@ -2,9 +2,13 @@
   <div class="wrapper-popup" :class="{'open-popup': isOpenPopup === true}" @click="closePopup">
     <div class="rule" @click.stop="">
       <h3>Luật chơi</h3>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit praesentium atque cumque beatae
-        laboriosam amet autem maxime voluptatibus, adipisci dolore quis et rem, officia magni quia alias,
-        recusandae obcaecati pariatur.</p>
+      <p>B1: Bấm vào nút new game.</p>
+      <p>B2: Nhập final score.</p>
+      <p>B3: Roll score.</p>
+      <p>- Roll tiếp thì điểm sẽ cộng vào curent score.</p>
+      <p>- Nếu roll vào số 1 sẽ đổi người chơi vào reset current score về 0.</p>
+      <p>B4: Hold score</p>
+      <p>- Player nào có số điểm tổng lớn hơn điểm final score sẽ winner.</p>
       <button class="btn-confirm" @click="closePopup">Đã Hiểu</button>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-player">
-    <div class="player-panel" :class="{active: activePlayer === 0}">
-      <div class="player-name">Player 1</div>
+    <div class="player-panel" :class="{active: activePlayer === 0, winner: isWinner === 1}" >
+      <div class="player-name">{{isWinner === 1 ? "Winner!" : "Player 1"}}</div>
       <div class="player-score">{{scoresPlayer[0]}}</div>
       <div class="player-current-box">
           <div class="player-current-label">Current</div>
@@ -9,8 +9,8 @@
       </div>
     </div>
 
-    <div class="player-panel" :class="{active: activePlayer === 1}">
-        <div class="player-name">Player 2</div>
+    <div class="player-panel" :class="{active: activePlayer === 1, winner: isWinner === 2}">
+        <div class="player-name">{{isWinner === 2 ? "Winner!" : "Player 2"}}</div>
         <div class="player-score">{{scoresPlayer[1]}}</div>
         <div class="player-current-box">
             <div class="player-current-label">Current</div>
@@ -27,7 +27,8 @@ export default {
     activePlayer: {type: Number, default: 0},
     // eslint-disable-next-line vue/require-valid-default-prop
     scoresPlayer: {type: Array, default: [0, 0]},
-    currentScore: {type: Number, default: 0}
+    currentScore: {type: Number, default: 0},
+    isWinner: {type: Number, default: 0}
   },
   data () {
     return {

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper clearfix">
-    <players :activePlayer="activePlayer" :scoresPlayer="scoresPlayer" :currentScore="currentScore" />
-    <controls @handleNewGame="handleNewGame" @handleRollDice="handleRollDice" @handleHoldScore="handleHoldScore" />
+    <players :activePlayer="activePlayer" :scoresPlayer="scoresPlayer" :currentScore="currentScore" :isWinner="isWinner" :finalScore="finalScore" />
+    <controls @handleNewGame="handleNewGame" @handleRollDice="handleRollDice" @handleHoldScore="handleHoldScore" @handleFinalScore="handleFinalScore" />
     <dices :dices="dices" />
     <popup-rule :isOpenPopup="isOpenPopup" @handleClosePopup="handleClosePopup" />
   </div>
@@ -22,7 +22,8 @@ export default {
       scoresPlayer: [0, 0],
       dices: [1, 1],
       currentScore: 0,
-      finalScore: 0
+      finalScore: 0,
+      isWinner: 0
     }
   },
   methods: {
@@ -38,8 +39,8 @@ export default {
       this.currentScore = 0
     },
     handleRollDice: function () {
-      if (!this.isPlaying) {
-        alert('Bạn cần phải bấm vào nút new game để chơi!')
+      if (!this.isPlaying || !this.finalScore) {
+        alert('Bạn cần phải bấm vào nút new game và nhập final score để chơi!')
       } else {
         let dice1 = Math.floor((Math.random() * 6) + 1)
         let dice2 = Math.floor((Math.random() * 6) + 1)
@@ -47,19 +48,29 @@ export default {
         if (dice1 === 1 || dice2 === 1) {
           this.currentScore = 0
           this.activePlayer ? this.activePlayer = 0 : this.activePlayer = 1
+          alert('Người chơi đã quay vào xúc sắc số 1!')
         } else {
           this.currentScore = this.currentScore + dice1 + dice2
         }
       }
     },
     handleHoldScore: function () {
-      if (!this.isPlaying) {
-        alert('Bạn cần phải bấm vào nút new game để chơi!')
+      if (!this.isPlaying || !this.finalScore) {
+        alert('Bạn cần phải bấm vào nút new game và nhập final score để chơi!')
       } else {
         this.scoresPlayer[this.activePlayer] = this.currentScore
-        this.activePlayer ? this.activePlayer = 0 : this.activePlayer = 1
-        this.currentScore = 0
+        if (this.scoresPlayer[this.activePlayer] >= this.finalScore) {
+          this.isWinner = this.activePlayer + 1
+          this.isPlaying = false
+          this.activePlayer = -1
+        } else {
+          this.activePlayer ? this.activePlayer = 0 : this.activePlayer = 1
+          this.currentScore = 0
+        }
       }
+    },
+    handleFinalScore: function (value) {
+      this.finalScore = value
     }
   },
   components: {
