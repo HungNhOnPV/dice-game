@@ -37,6 +37,7 @@ export default {
       this.scoresPlayer = [0, 0]
       this.dices = [1, 1]
       this.currentScore = 0
+      this.isWinner = 0
     },
     handleRollDice: function () {
       if (!this.isPlaying || !this.finalScore) {
