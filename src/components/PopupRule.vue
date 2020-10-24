@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper-popup" :class="{'open-popup': isOpenPopup === true}">
-    <div class="rule">
+  <div class="wrapper-popup" :class="{'open-popup': isOpenPopup === true}" @click="closePopup">
+    <div class="rule" @click.stop="">
       <h3>Luật chơi</h3>
       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit praesentium atque cumque beatae
         laboriosam amet autem maxime voluptatibus, adipisci dolore quis et rem, officia magni quia alias,
