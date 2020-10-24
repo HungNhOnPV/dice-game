@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper clearfix">
-    <players />
-    <controls />
+    <players :activePlayer="activePlayer" :scoresPlayer="scoresPlayer" :currentScore="currentScore" />
+    <controls @handleNewGame="handleNewGame" />
     <dices />
+    <popup-rule :isOpenPopup="isOpenPopup" @handleClosePopup="handleClosePopup" />
   </div>
 </template>
 
@@ -10,15 +11,32 @@
 import Players from './components/Players'
 import Controls from './components/Controls'
 import Dices from './components/Dices'
+import PopupRule from './components/PopupRule'
 export default {
   name: 'App',
   data () {
-
+    return {
+      isPlaying: false,
+      isOpenPopup: false,
+      activePlayer: 0,
+      scoresPlayer: [13, 30],
+      currentScore: 0
+    }
+  },
+  methods: {
+    handleNewGame: function () {
+      this.isOpenPopup = true
+      this.isPlaying = true
+    },
+    handleClosePopup: function () {
+      this.isOpenPopup = false
+    }
   },
   components: {
     Players,
     Controls,
-    Dices
+    Dices,
+    PopupRule
   }
 }
 </script>
