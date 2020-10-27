@@ -20,7 +20,7 @@ export default {
       isOpenPopup: false,
       activePlayer: 0,
       scoresPlayer: [0, 0],
-      dices: [1, 1],
+      dices: [1],
       currentScore: 0,
       finalScore: 0,
       isWinner: 0
@@ -44,14 +44,17 @@ export default {
         alert('Bạn cần phải bấm vào nút new game và nhập final score để chơi!')
       } else {
         let dice1 = Math.floor((Math.random() * 6) + 1)
-        let dice2 = Math.floor((Math.random() * 6) + 1)
-        this.dices = [dice1, dice2]
-        if (dice1 === 1 || dice2 === 1) {
+        // let dice2 = Math.floor((Math.random() * 6) + 1)
+        // this.dices = [dice1, dice2]
+        this.dices = [dice1]
+        // if (dice1 === 1 || dice2 === 1) {
+        if (dice1 === 1) {
           this.currentScore = 0
           this.activePlayer ? this.activePlayer = 0 : this.activePlayer = 1
           alert('Người chơi đã quay vào xúc sắc số 1!')
         } else {
-          this.currentScore = this.currentScore + dice1 + dice2
+          // this.currentScore = this.currentScore + dice1 + dice2
+          this.currentScore = this.currentScore + dice1
         }
       }
     },
@@ -59,7 +62,7 @@ export default {
       if (!this.isPlaying || !this.finalScore) {
         alert('Bạn cần phải bấm vào nút new game và nhập final score để chơi!')
       } else {
-        this.scoresPlayer[this.activePlayer] = this.currentScore
+        this.scoresPlayer[this.activePlayer] = this.scoresPlayer[this.activePlayer] + this.currentScore
         if (this.scoresPlayer[this.activePlayer] >= this.finalScore) {
           this.isWinner = this.activePlayer + 1
           this.isPlaying = false

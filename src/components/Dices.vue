@@ -10,7 +10,7 @@
           <div class="face6">6</div>
       </div>
     </div>
-    <div id="dice-2" class="dice">
+    <!-- <div id="dice-2" class="dice">
       <div class="spinner" :class="`dice-${dices[1]}`">
           <div class="face1">1</div>
           <div class="face2">2</div>
@@ -19,7 +19,7 @@
           <div class="face5">5</div>
           <div class="face6">6</div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -37,7 +37,8 @@ export default {
 </script>
 
 <style>
-#dice-1 { top: 120px; }
+/* #dice-1 { top: 120px; } */
+#dice-1 { top: 200px; }
 #dice-2 { top: 250px; }
 
 .dice {
